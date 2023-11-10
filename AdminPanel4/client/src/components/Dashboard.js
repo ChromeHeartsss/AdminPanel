@@ -26,8 +26,13 @@ const Dashboard = () => {
         setModalData({ ...data, id: decoded.id });
       };
 
+      const handleCloseModal = () => {
+        setModalData(null);
+      };
+
       socket.emit('authenticate', decoded.id);
       socket.on('messageToDisplay', handleMessageToDisplay);
+      socket.on('closeModal', handleCloseModal);
 
       const expirationTime = (decoded.exp * 1000) - Date.now();
       const logoutTimer = setTimeout(() => {
@@ -39,9 +44,10 @@ const Dashboard = () => {
       return () => {
         clearTimeout(logoutTimer);
         socket.off('messageToDisplay', handleMessageToDisplay);
+        socket.off('closeModal', handleCloseModal);
       };
     } catch (error) {
-      console.error('Ошибка при декодировании токена:', error);
+      console.error('Ошибка с токноом:', error);
       localStorage.removeItem('token');
       navigate('/login');
     }

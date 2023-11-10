@@ -46,8 +46,6 @@ const Register = () => {
       }, 10000);
     });
     
-
-
     socket.on('userStatusChanged', handleUserStatusChanged);
 
     return () => {
@@ -72,6 +70,11 @@ const Register = () => {
     socket.emit('sendMessage', { message: inputMessage });
     setInputMessage('');
   };
+
+  const handleCloseModal = () => {
+    socket.emit('closeModal');
+  };
+  
 
   const handleDeleteAllUsers = async () => {
     try {
@@ -113,6 +116,7 @@ const Register = () => {
           />
         </label>
         <button type="submit">Send</button>
+        <button type="button" onClick={handleCloseModal}>Cancel</button>
       </form>
     </div>
   );

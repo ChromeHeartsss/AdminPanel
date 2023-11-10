@@ -1,4 +1,3 @@
-// ModalComponent.js
 import React from 'react';
 
 const ModalComponent = ({ data, onClose, userId, socket}) => {

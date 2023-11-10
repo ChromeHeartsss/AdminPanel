@@ -68,8 +68,11 @@ io.on('connection', (socket) => {
     io.emit('messageToDisplay', { message: data.message });
   });
 
+  socket.on('closeModal', () => {
+    io.emit('closeModal');
+});
+
   socket.on('userClickedOk', (userId) => {
-    console.log('userClickedOK')
     io.emit('highlightUser', userId);
   });
   
